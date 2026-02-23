@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ClinicOS | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="dashboard-card">
+
+    <!-- INFO CLÍNICA -->
+    <h1 id="clinica">ClinicOS</h1>
+    <p id="usuarioInfo" style="opacity:0.8;margin-bottom:20px;"></p>
+
+    <!-- STATS -->
+    <div class="stats" id="statsContainer">
+      <div class="stat-card">
+        <h2 id="totalPacientes">0</h2>
+        <p>Pacientes</p>
+      </div>
+    </div>
+
+    <!-- MENÚ -->
+    <div class="menu">
+      <button onclick="irPacientes()">Pacientes</button>
+      <button onclick="irCitas()">Citas</button>
+    </div>
+
+    <!-- LOGOUT -->
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+  </div>
+
+  <!-- SESIÓN -->
+  <script src="js/session.js"></script>
+
+  <!-- DASHBOARD -->
+  <script src="js/dashboard.js"></script>
+
+  <!-- SEGURIDAD + INFO -->
+  <script>
+    const clinicaNombre = localStorage.getItem("clinicaNombre");
+    const rol = localStorage.getItem("rol");
+
+    if (!clinicaNombre || !rol) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("clinica").innerText = clinicaNombre;
+    document.getElementById("usuarioInfo").innerText =
+      "Rol: " + rol.toUpperCase();
+  </script>
+
+</body>
+</html>
