@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>ClinicOS | Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- ✅ RUTA CORRECTA -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -32,25 +34,25 @@
     <button class="logout" onclick="logout()">Cerrar sesión</button>
   </div>
 
-  <!-- SESIÓN -->
-  <script src="js/session.js"></script>
+  <!-- ✅ JS EN RAÍZ -->
+  <script src="session.js"></script>
+  <script src="dashboard.js"></script>
 
-  <!-- DASHBOARD -->
-  <script src="js/dashboard.js"></script>
-
-  <!-- SEGURIDAD + INFO -->
+  <!-- 🔒 SEGURIDAD -->
   <script>
     const clinicaNombre = localStorage.getItem("clinicaNombre");
     const rol = localStorage.getItem("rol");
+    const usuario = localStorage.getItem("usuario");
 
-    if (!clinicaNombre || !rol) {
+    if (!clinicaNombre || !rol || !usuario) {
       window.location.href = "index.html";
     }
 
     document.getElementById("clinica").innerText = clinicaNombre;
     document.getElementById("usuarioInfo").innerText =
-      "Rol: " + rol.toUpperCase();
+      "Usuario: " + usuario + " | Rol: " + rol.toUpperCase();
   </script>
 
 </body>
 </html>
+
