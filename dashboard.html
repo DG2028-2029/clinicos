@@ -4,19 +4,15 @@
   <meta charset="UTF-8">
   <title>ClinicOS | Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ✅ RUTA CORRECTA -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
   <div class="dashboard-card">
 
-    <!-- INFO CLÍNICA -->
     <h1 id="clinica">ClinicOS</h1>
     <p id="usuarioInfo" style="opacity:0.8;margin-bottom:20px;"></p>
 
-    <!-- STATS -->
     <div class="stats" id="statsContainer">
       <div class="stat-card">
         <h2 id="totalPacientes">0</h2>
@@ -24,34 +20,17 @@
       </div>
     </div>
 
-    <!-- MENÚ -->
     <div class="menu">
-      <button onclick="irPacientes()">Pacientes</button>
-      <button onclick="irCitas()">Citas</button>
+      <button type="button" onclick="irPacientes()">Pacientes</button>
+      <button type="button" onclick="irCitas()">Citas</button>
     </div>
 
-    <!-- LOGOUT -->
-    <button class="logout" onclick="logout()">Cerrar sesión</button>
+    <button class="logout" type="button" onclick="logout()">Cerrar sesión</button>
   </div>
 
-  <!-- ✅ JS EN RAÍZ -->
-  <script src="session.js"></script>
-  <script src="dashboard.js"></script>
-
-  <!-- 🔒 SEGURIDAD -->
-  <script>
-    const clinicaNombre = localStorage.getItem("clinicaNombre");
-    const rol = localStorage.getItem("rol");
-    const usuario = localStorage.getItem("usuario");
-
-    if (!clinicaNombre || !rol || !usuario) {
-      window.location.href = "index.html";
-    }
-
-    document.getElementById("clinica").innerText = clinicaNombre;
-    document.getElementById("usuarioInfo").innerText =
-      "Usuario: " + usuario + " | Rol: " + rol.toUpperCase();
-  </script>
+  <script src="js/session.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/dashboard.js"></script>
 
 </body>
 </html>
