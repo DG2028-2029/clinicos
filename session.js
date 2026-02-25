@@ -1,5 +1,5 @@
 /* =========================
-   SESSION MANAGER PRO
+   SESSION MANAGER PRO (FIX)
 ========================= */
 
 const SESSION = {
@@ -12,8 +12,11 @@ const SESSION = {
 const TIMEOUT = 20 * 60 * 1000; // 20 minutos
 
 function verificarSesion() {
-  if (!localStorage.getItem(SESSION.clinicaID)) {
-    window.location.href = "index.html";
+  const clinicaID = localStorage.getItem(SESSION.clinicaID);
+  const rol = localStorage.getItem(SESSION.rol);
+
+  if (!clinicaID || !rol) {
+    window.location.replace("index.html");
   }
 }
 
@@ -32,8 +35,10 @@ function verificarInactividad() {
 }
 
 function cerrarSesion() {
-  Object.values(SESSION).forEach(k => localStorage.removeItem(k));
-  window.location.href = "index.html";
+  Object.values(SESSION).forEach(k =>
+    localStorage.removeItem(k)
+  );
+  window.location.replace("index.html");
 }
 
 ["click", "keydown", "mousemove"].forEach(evt =>
