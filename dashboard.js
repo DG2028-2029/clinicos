@@ -1,5 +1,5 @@
 /* =========================
-   DASHBOARD CLINICOS
+   DASHBOARD CLINICOS (FIX)
 ========================= */
 
 const clinicaID = localStorage.getItem("clinicaID");
@@ -8,50 +8,61 @@ const rol = localStorage.getItem("rol");
 
 /* SEGURIDAD */
 if (!clinicaID || !clinicaNombre || !rol) {
-  window.location.href = "index.html";
+  window.location.replace("index.html");
 }
 
 /* INFO */
 document.getElementById("clinica").innerText =
   `Bienvenido a ${clinicaNombre}`;
 
-document.getElementById("usuarioInfo") &&
-  (document.getElementById("usuarioInfo").innerText =
-    `Rol: ${rol.toUpperCase()}`);
+document.getElementById("usuarioInfo").innerText =
+  `Rol: ${rol.toUpperCase()}`;
 
-/* PACIENTES */
-const pacientesKey = `pacientes_${clinicaID}`;
-const pacientes = JSON.parse(localStorage.getItem(pacientesKey)) || [];
+/* =========================
+   PACIENTES
+========================= */
+const pacientes = JSON.parse(
+  localStorage.getItem(`pacientes_${clinicaID}`)
+) || [];
 
 document.getElementById("totalPacientes").innerText =
   pacientes.length;
 
-/* CITAS HOY */
-const citasKey = `citas_${clinicaID}`;
-const citas = JSON.parse(localStorage.getItem(citasKey)) || [];
+/* =========================
+   CITAS HOY
+========================= */
+const statsContainer = document.getElementById("statsContainer");
+if (statsContainer) {
+  const citas = JSON.parse(
+    localStorage.getItem(`citas_${clinicaID}`)
+  ) || [];
 
-const hoy = new Date().toISOString().split("T")[0];
-const citasHoy = citas.filter(c => c.fecha === hoy).length;
+  const hoy = new Date().toISOString().split("T")[0];
+  const citasHoy = citas.filter(c => c.fecha === hoy).length;
 
-/* STAT */
-const stat = document.createElement("div");
-stat.className = "stat-card";
-stat.innerHTML = `
-  <h2>${citasHoy}</h2>
-  <p>Citas hoy</p>
-`;
-document.getElementById("statsContainer").appendChild(stat);
+  const stat = document.createElement("div");
+  stat.className = "stat-card";
+  stat.innerHTML = `
+    <h2>${citasHoy}</h2>
+    <p>Citas hoy</p>
+  `;
 
-/* NAVEGACIÓN */
+  statsContainer.appendChild(stat);
+}
+
+/* =========================
+   NAVEGACIÓN
+========================= */
 function irPacientes() {
-  window.location.href = "pacientes.html";
+  window.location.href = "./pacientes.html";
 }
 
 function irCitas() {
-  window.location.href = "citas.html";
+  window.location.href = "./citas.html";
 }
 
 function logout() {
   localStorage.clear();
-  window.location.href = "index.html";
+  window.location.replace("index.html");
 }
+
