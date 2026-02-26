@@ -1,36 +1,35 @@
-// NO redirigir antes de cargar
-setTimeout(() => verificarSesion(), 50);
+const clinicaID = localStorage.getItem("clinicaID");
+const clinicaNombre = localStorage.getItem("clinicaNombre");
+const rol = localStorage.getItem("rol");
 
-const clinicaNombre = localStorage.getItem("clinicaNombre") || "ClinicOS";
-const rol = localStorage.getItem("rol") || "";
+if (!clinicaID || !clinicaNombre || !rol) {
+  window.location.replace("index.html");
+}
 
-document.getElementById("clinica").innerText =
-  "Bienvenido a " + clinicaNombre;
+document.getElementById("clinica").innerText = `Bienvenido a ${clinicaNombre}`;
+document.getElementById("usuarioInfo").innerText = `Rol: ${rol.toUpperCase()}`;
 
-document.getElementById("usuarioInfo").innerText =
-  rol ? `Rol: ${rol}` : "";
-
-// Pacientes
-const pacientes = getPacientes();
+const pacientes = JSON.parse(localStorage.getItem(`pacientes_${clinicaID}`)) || [];
 document.getElementById("totalPacientes").innerText = pacientes.length;
 
-// Citas hoy
-const citas = getCitas();
+const statsContainer = document.getElementById("statsContainer");
+const citas = JSON.parse(localStorage.getItem(`citas_${clinicaID}`)) || [];
 const hoy = new Date().toISOString().split("T")[0];
 const citasHoy = citas.filter(c => c.fecha === hoy).length;
 
 const stat = document.createElement("div");
 stat.className = "stat-card";
 stat.innerHTML = `<h2>${citasHoy}</h2><p>Citas hoy</p>`;
-document.getElementById("stats").appendChild(stat);
+statsContainer.appendChild(stat);
 
-// BOTONES (EVENT LISTENERS = 100% fiable)
-document.getElementById("btnPacientes").onclick =
-  () => window.location.href = "./pacientes.html";
-
-document.getElementById("btnCitas").onclick =
-  () => window.location.href = "./citas.html";
-
-document.getElementById("btnLogout").onclick =
-  () => cerrarSesion();
+function irPacientes() {
+  window.location.href = "pacientes.html";
+}
+function irCitas() {
+  window.location.href = "citas.html";
+}
+function logout() {
+  localStorage.clear();
+  window.location.replace("index.html");
+}
 
