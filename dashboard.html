@@ -4,45 +4,32 @@
   <meta charset="UTF-8">
   <title>ClinicOS | Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
   <div class="dashboard-card">
-
     <h1 id="clinica">ClinicOS</h1>
-    <p id="usuarioInfo" style="opacity:0.8;margin-bottom:20px;"></p>
+    <p id="usuarioInfo"></p>
 
-    <!-- STATS -->
-    <div class="stats" id="statsContainer">
+    <div class="stats" id="stats">
       <div class="stat-card">
         <h2 id="totalPacientes">0</h2>
         <p>Pacientes</p>
       </div>
     </div>
 
-    <!-- MENÚ -->
     <div class="menu">
-      <button type="button" onclick="irPacientes()">Pacientes</button>
-      <button type="button" onclick="irCitas()">Citas</button>
+      <button id="btnPacientes">Pacientes</button>
+      <button id="btnCitas">Citas</button>
     </div>
 
-    <!-- LOGOUT -->
-    <button class="logout" type="button" onclick="logout()">
-      Cerrar sesión
-    </button>
-
+    <button class="logout" id="btnLogout">Cerrar sesión</button>
   </div>
 
-  <!-- SESIÓN -->
-  <script src="js/session.js"></script>
-
-  <!-- STORAGE -->
-  <script src="js/storage.js"></script>
-
-  <!-- DASHBOARD -->
-  <script src="js/dashboard.js"></script>
-
+  <script src="./storage.js"></script>
+  <script src="./session.js"></script>
+  <script src="./dashboard.js"></script>
 </body>
 </html>
 
