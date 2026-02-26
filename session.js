@@ -1,5 +1,5 @@
 /* =========================
-   SESSION MANAGER PRO (FIX)
+   SESSION MANAGER PRO (STABLE)
 ========================= */
 
 const SESSION = {
@@ -41,10 +41,12 @@ function cerrarSesion() {
   window.location.replace("index.html");
 }
 
+/* =========================
+   EVENTOS GLOBALES
+========================= */
 ["click", "keydown", "mousemove"].forEach(evt =>
   document.addEventListener(evt, actualizarActividad)
 );
 
-verificarSesion();
 actualizarActividad();
 setInterval(verificarInactividad, 60 * 1000);
