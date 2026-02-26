@@ -1,5 +1,6 @@
 /* =========================
    SESSION MANAGER PRO (STABLE)
+   GITHUB PAGES SAFE
 ========================= */
 
 const SESSION = {
@@ -11,19 +12,23 @@ const SESSION = {
 
 const TIMEOUT = 20 * 60 * 1000; // 20 minutos
 
+// 🔒 Verificación de sesión (DOM SAFE)
 function verificarSesion() {
   const clinicaID = localStorage.getItem(SESSION.clinicaID);
   const rol = localStorage.getItem(SESSION.rol);
 
   if (!clinicaID || !rol) {
-    window.location.replace("index.html");
+    // usar replace para no volver atrás
+    window.location.replace("./index.html");
   }
 }
 
+// ⏱️ Actividad
 function actualizarActividad() {
   localStorage.setItem(SESSION.lastActivity, Date.now());
 }
 
+// ⌛ Inactividad
 function verificarInactividad() {
   const last = Number(localStorage.getItem(SESSION.lastActivity));
   if (!last) return;
@@ -34,19 +39,31 @@ function verificarInactividad() {
   }
 }
 
+// 🚪 Logout limpio
 function cerrarSesion() {
   Object.values(SESSION).forEach(k =>
     localStorage.removeItem(k)
   );
-  window.location.replace("index.html");
+  window.location.replace("./index.html");
 }
 
 /* =========================
    EVENTOS GLOBALES
 ========================= */
-["click", "keydown", "mousemove"].forEach(evt =>
-  document.addEventListener(evt, actualizarActividad)
-);
 
-actualizarActividad();
-setInterval(verificarInactividad, 60 * 1000);
+// ⚠️ Esperar a que cargue el DOM
+document.addEventListener("DOMContentLoaded", () => {
+
+  // eventos de actividad
+  ["click", "keydown", "mousemove"].forEach(evt =>
+    document.addEventListener(evt, actualizarActividad)
+  );
+
+  actualizarActividad();
+
+  // verificar sesión DESPUÉS de cargar
+  setTimeout(verificarSesion, 50);
+
+  // chequeo de inactividad
+  setInterval(verificarInactividad, 60 * 1000);
+});
