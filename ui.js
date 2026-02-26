@@ -1,14 +1,8 @@
-/* =========================
-   UI MANAGER PRO
-   Toasts + Loader
-========================= */
-
 const UI = (() => {
   let container;
 
   function init() {
     if (container) return;
-
     container = document.createElement("div");
     container.id = "toast-container";
     document.body.appendChild(container);
@@ -16,16 +10,14 @@ const UI = (() => {
 
   function toast(message, type = "info", time = 3000) {
     init();
-
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-
-    container.appendChild(toast);
+    const t = document.createElement("div");
+    t.className = `toast ${type}`;
+    t.textContent = message;
+    container.appendChild(t);
 
     setTimeout(() => {
-      toast.classList.add("hide");
-      setTimeout(() => toast.remove(), 400);
+      t.classList.add("hide");
+      setTimeout(() => t.remove(), 400);
     }, time);
   }
 
@@ -35,3 +27,4 @@ const UI = (() => {
     info: msg => toast(msg, "info")
   };
 })();
+
